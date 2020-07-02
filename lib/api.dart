@@ -4,7 +4,7 @@ import 'package:fluttertube/models/video_models.dart';
 import 'package:http/http.dart' as http;
 
 //esta api que usa para buscar videos dar play no video
-const API_KEY = "AIzaSyBNKwBnydbDCJaSzjsQElDqDFfAZDSiaHQ";
+const API_KEY = "AIzaSyBUOyWig_x0ml84PZFFNvLm4e18joHLj1c";
 
 //"https://www.googleapis.com/youtube/v3/search?part=snippet&q=$search&type=video&key=$API_KEY&maxResults=10"
 //"https://www.googleapis.com/youtube/v3/search?part=snippet&q=$_search&type=video&key=$API_KEY&maxResults=10&pageToken=$_nextToken"
@@ -18,20 +18,22 @@ class Api {
     decodificar(response);
   }
 
-  List<Video> decodificar(http.Response response){
+  //decodificar o json do objeto Video
+  List<Video> decodificar(http.Response response) {
     //verificar se o codigo foi 200
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       var decodificado = json.decode(response.body);
-
       //jogando tudo dentro de uma lista de Videos
       List<Video> videos = decodificado["items"].map<Video>(
         //temos que passar uma função que vai receber o map cada map é um video
-          (map){
-            return Video.paraJson(map);
-          }
+        (map) {
+          return Video.paraJson(map);
+        },
       ).toList();
       print(videos);
       return videos;
+    } else {
+      throw Exception("Erro ao receber dados!");
     }
   }
 }
