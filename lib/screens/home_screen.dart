@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertube/tile/buscar_tile.dart';
+import 'package:fluttertube/tile/buscar_delegate_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -45,8 +45,8 @@ class HomeScreen extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: BuscarTile());
+            onPressed: () async {
+              String resultado = await showSearch(context: context, delegate: BuscarDelegateTile());
             },
           ),
         ],
