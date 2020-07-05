@@ -4,7 +4,7 @@ import 'package:fluttertube/models/video_models.dart';
 import 'package:http/http.dart' as http;
 
 //esta api que usa para buscar videos dar play no video
-const API_KEY = "AIzaSyBUOyWig_x0ml84PZFFNvLm4e18joHLj1c";
+const API_KEY = "AIzaSyC7jGyk47EmFCTwbBSfIg627KZkLC2gmmw";
 
 //"https://www.googleapis.com/youtube/v3/search?part=snippet&q=$search&type=video&key=$API_KEY&maxResults=10"
 //"https://www.googleapis.com/youtube/v3/search?part=snippet&q=$_search&type=video&key=$API_KEY&maxResults=10&pageToken=$_nextToken"
