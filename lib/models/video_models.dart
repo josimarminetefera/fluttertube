@@ -14,7 +14,7 @@ class Video {
   });
 
   //quando eu passar um json para o construtor ele vai converter para um objeto
-  factory Video.paraJson(Map<String, dynamic> json) {
+  factory Video.paraVideo(Map<String, dynamic> json) {
     return Video(
       id: json["id"]["videoId"],
       titulo: json["snippet"]["title"],

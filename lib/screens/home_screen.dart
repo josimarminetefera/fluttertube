@@ -1,4 +1,6 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertube/blocs/videos_bloc.dart';
 import 'package:fluttertube/tile/buscar_delegate_tile.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,12 +48,32 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () async {
-              String resultado = await showSearch(context: context, delegate: BuscarDelegateTile());
+              String resultado = await showSearch(
+                  context: context, delegate: BuscarDelegateTile());
+              if (resultado != null) {
+                BlocProvider.of<VideosBloc>(context).entrarBusca.add(resultado);
+              }
             },
           ),
         ],
       ),
-      body: Container(),
+      body: StreamBuilder(
+        //toda vez que tiver alguma atualização na stream
+        stream: BlocProvider.of<VideosBloc>(context).sairVideos,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemBuilder: (context, index){
+                //para cada um dos itens tendo que resgatar uma imagem e um titulo
+                return VideoTile(snapshot.data[index]);
+              },
+              itemCount: snapshot.data.length,
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

@@ -12,14 +12,15 @@ class VideosBloc implements BlocBase {
   List<Video> videos;
 
   //nao quero ter acesso fora do bloc
-  final StreamController _streamController = StreamController();
+  final StreamController<List<Video>> _streamController =
+      StreamController<List<Video>>();
 
   //externamente só vou falar com esta variavel pois as outras ficaram internas
-  Stream get sairVideso => _streamController.stream;
+  Stream get sairVideos => _streamController.stream;
 
   //passar da dos para dentro de um bloc
   //vou receber dados de fora
-  final StreamController _buscaController = StreamController();
+  final StreamController<String> _buscaController = StreamController<String>();
 
   //toda vez que eu colocar algum dado dentro do _buscarController uso esta entrada
   Sink get entrarBusca => _buscaController.sink;
@@ -32,7 +33,7 @@ class VideosBloc implements BlocBase {
   //o que for passado dentro de entrarBusca vem como paremetro
   void _buscar(String busca) async {
     videos = await api.buscar(busca);
-    print(videos);
+    _streamController.sink.add(videos);
   }
 
   @override
