@@ -11,9 +11,20 @@ const API_KEY = "AIzaSyC8cd7wtWyckEm1FdFJfKDNLeffeO-cUZk";
 //"http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&q=$search&format=5&alt=json"
 
 class Api {
-  buscar(String busca) async {
+  String _busca;
+  String _proximoToken;
+
+  Future<List<Video>> buscar(String busca) async {
+    _busca = busca;
     http.Response response = await http.get(
       "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$busca&type=video&key=$API_KEY&maxResults=10",
+    );
+    return decodificar(response);
+  }
+
+  Future<List<Video>> proximaPagina() async {
+    http.Response response = await http.get(
+      "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$_busca&type=video&key=$API_KEY&maxResults=10&pageToken=$_proximoToken",
     );
     return decodificar(response);
   }
@@ -23,6 +34,7 @@ class Api {
     //verificar se o codigo foi 200
     if (response.statusCode == 200) {
       var decodificado = json.decode(response.body);
+      _proximoToken = decodificado["nextPageToken"];
       //jogando tudo dentro de uma lista de Videos
       List<Video> videos = decodificado["items"].map<Video>(
         //temos que passar uma função que vai receber o map cada map é um video

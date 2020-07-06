@@ -32,7 +32,11 @@ class VideosBloc implements BlocBase {
 
   //o que for passado dentro de entrarBusca vem como paremetro
   void _buscar(String busca) async {
-    videos = await api.buscar(busca);
+    if (busca != null) {
+      videos = await api.buscar(busca);
+    } else {
+      videos += await api.proximaPagina();
+    }
     _streamController.sink.add(videos);
   }
 

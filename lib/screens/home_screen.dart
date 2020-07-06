@@ -67,9 +67,24 @@ class HomeScreen extends StatelessWidget {
             return ListView.builder(
               itemBuilder: (context, index) {
                 //para cada um dos itens tendo que resgatar uma imagem e um titulo
-                return VideoTile(snapshot.data[index]);
+                if (index < snapshot.data.length) {
+                  //quando eu chegar no item 10 (ultimo pois começa no 0) ele vai tentar recarregar
+                  return VideoTile(snapshot.data[index]);
+                } else {
+                  //caso seja maior que 10 é um item que ainda tenho que buscar
+                  //passo null para ele pular para a proxima pagina
+                  BlocProvider.of<VideosBloc>(context).entrarBusca.add(null);
+                  return Container(
+                    height: 40.0,
+                    width: 40.0,
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+                    ),
+                  );
+                }
               },
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data.length + 1,
             );
           } else {
             return Container();
