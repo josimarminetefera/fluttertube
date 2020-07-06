@@ -1,7 +1,8 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertube/blocs/videos_bloc.dart';
-import 'package:fluttertube/tile/buscar_delegate_tile.dart';
+import 'package:fluttertube/tiles/buscar_delegate_tile.dart';
+import 'package:fluttertube/tiles/video_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -57,13 +58,14 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+      backgroundColor: Colors.black,
       body: StreamBuilder(
         //toda vez que tiver alguma atualização na stream
         stream: BlocProvider.of<VideosBloc>(context).sairVideos,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              itemBuilder: (context, index){
+              itemBuilder: (context, index) {
                 //para cada um dos itens tendo que resgatar uma imagem e um titulo
                 return VideoTile(snapshot.data[index]);
               },
