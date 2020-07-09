@@ -4,7 +4,7 @@ import 'package:fluttertube/models/video.dart';
 import 'dart:async';
 
 class VideosBloc implements BlocBase {
-  //o bloc sera a ponte entre a api e os widgets
+  //o bloc sera a ponte entre a api e os tiles
   Api api;
 
   //quando coloco os videos aqui dentro autimaticamente ele já vai chamar o sink e ja sai no Stream

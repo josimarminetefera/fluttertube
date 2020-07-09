@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertube/api.dart';
-import 'package:fluttertube/blocs/favorite_bloc.dart';
+import 'package:fluttertube/blocs/favorito_bloc.dart';
 import 'package:fluttertube/blocs/videos_bloc.dart';
 import 'package:fluttertube/screens/home.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
         bloc: VideosBloc(),
         child: BlocProvider(
-          bloc: FavoriteBloc(),
+          bloc: FavoritosBloc(),
           child: MaterialApp(
             title: 'FlutterTube',
             debugShowCheckedModeBanner: false,

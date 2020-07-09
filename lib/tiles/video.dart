@@ -2,7 +2,7 @@ import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
 import 'package:fluttertube/api.dart';
-import 'package:fluttertube/blocs/favorite_bloc.dart';
+import 'package:fluttertube/blocs/favorito_bloc.dart';
 import 'package:fluttertube/models/video.dart';
 
 class VideoTile extends StatelessWidget {
@@ -64,7 +64,7 @@ class VideoTile extends StatelessWidget {
 
   StreamBuilder<Map<String, Video>> montarBotaoFavorito(BuildContext context) {
     return StreamBuilder<Map<String, Video>>(
-      stream: BlocProvider.of<FavoriteBloc>(context).outFav,
+      stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,//toda vez que eu modificar o mapa de favoritos eu refaço o botão
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return IconButton(
@@ -74,7 +74,7 @@ class VideoTile extends StatelessWidget {
             color: Colors.white,
             iconSize: 30,
             onPressed: () {
-              BlocProvider.of<FavoriteBloc>(context).toggleFavorite(video);
+              BlocProvider.of<FavoritosBloc>(context).toggleFavorito(video);
             },
           );
         } else {

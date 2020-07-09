@@ -1,11 +1,11 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertube/blocs/favorite_bloc.dart';
+import 'package:fluttertube/blocs/favorito_bloc.dart';
 import 'package:fluttertube/blocs/videos_bloc.dart';
 import 'package:fluttertube/delegates/data_search.dart';
 import 'package:fluttertube/models/video.dart';
 import 'package:fluttertube/screens/favorites.dart';
-import 'package:fluttertube/widgets/videotile.dart';
+import 'package:fluttertube/tiles/video.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -75,7 +75,7 @@ class Home extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: StreamBuilder<Map<String, Video>>(
-            stream: BlocProvider.of<FavoriteBloc>(context).outFav,
+            stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,
             builder: (context, snapshot) {
               if (snapshot.hasData)
                 return Text(
@@ -119,7 +119,7 @@ class Home extends StatelessWidget {
                 minHeight: 12,
               ),
               child: StreamBuilder<Map<String, Video>>(
-                stream: BlocProvider.of<FavoriteBloc>(context).outFav,
+                stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Text(

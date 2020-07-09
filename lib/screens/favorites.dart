@@ -1,7 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_youtube/flutter_youtube.dart';
-import 'package:fluttertube/blocs/favorite_bloc.dart';
+import 'package:fluttertube/blocs/favorito_bloc.dart';
 import 'package:fluttertube/models/video.dart';
 import 'package:fluttertube/api.dart';
 
@@ -9,7 +9,7 @@ class Favorites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bloc = BlocProvider.of<FavoriteBloc>(context);
+    final bloc = BlocProvider.of<FavoritosBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -19,7 +19,7 @@ class Favorites extends StatelessWidget {
       ),
       backgroundColor: Colors.black87,
       body: StreamBuilder<Map<String, Video>>(
-        stream: bloc.outFav,
+        stream: bloc.saidaFavoritos,
           initialData: {},
           builder: (context, snapshot){
             return ListView(
@@ -32,7 +32,7 @@ class Favorites extends StatelessWidget {
                     );
                   },
                   onLongPress: (){
-                    bloc.toggleFavorite(v);
+                    bloc.toggleFavorito(v);
                   },
                   child: Row(
                     children: <Widget>[
