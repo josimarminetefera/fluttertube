@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class BuscarDelegateTile extends SearchDelegate<String> {
+class DataSearch extends SearchDelegate<String> {
   @override
   List<Widget> buildActions(BuildContext context) {
     // botão que fica no topo do lado direito
@@ -13,7 +13,7 @@ class BuscarDelegateTile extends SearchDelegate<String> {
         onPressed: () {
           query = "";
         },
-      ),
+      )
     ];
   }
 
@@ -21,10 +21,7 @@ class BuscarDelegateTile extends SearchDelegate<String> {
   Widget buildLeading(BuildContext context) {
     //o que vai ficar no canto esquerdo da pesquisa
     return IconButton(
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
+      icon: AnimatedIcon(icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
       onPressed: () {
         close(context, null);
       },
@@ -43,9 +40,9 @@ class BuscarDelegateTile extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     //carregado toda vez que eu digitar alguma informação
-    if (query.isEmpty) {
+    if (query.isEmpty)
       return Container();
-    } else {
+    else
       //busca as sujestões na api do youtube
       return FutureBuilder<List>(
         future: sujestoes(query),
@@ -74,11 +71,11 @@ class BuscarDelegateTile extends SearchDelegate<String> {
           }
         },
       );
-    }
   }
 
   Future<List> sujestoes(String busca) async {
     http.Response response = await http.get("http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&q=$busca&format=5&alt=json");
+
     if (response.statusCode == 200) {
       //se eu tenho um mapa eu uno o .map para percorrer ele melhor que o for
       return json.decode(response.body)[1].map(
@@ -87,7 +84,7 @@ class BuscarDelegateTile extends SearchDelegate<String> {
         },
       ).toList();
     } else {
-      throw Exception("Erro ao carregar os dados.");
+      throw Exception("Erro ao receber dados das sujestões!");
     }
   }
 }

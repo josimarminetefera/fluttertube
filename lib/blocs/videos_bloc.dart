@@ -1,22 +1,20 @@
-import 'dart:async';
-
-import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:fluttertube/api.dart';
-import 'package:fluttertube/models/video_models.dart';
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:fluttertube/models/video.dart';
+import 'dart:async';
 
 class VideosBloc implements BlocBase {
   //o bloc sera a ponte entre a api e os widgets
   Api api;
 
-  //quando coloco os vvideos aqui dentro autimaticamente ele já vai chamar o sink e ja sai no Stream
+  //quando coloco os videos aqui dentro autimaticamente ele já vai chamar o sink e ja sai no Stream
   List<Video> videos;
 
   //nao quero ter acesso fora do bloc
-  final StreamController<List<Video>> _streamController =
-      StreamController<List<Video>>();
+  final StreamController<List<Video>> _videosController = StreamController<List<Video>>();
 
   //externamente só vou falar com esta variavel pois as outras ficaram internas
-  Stream get sairVideos => _streamController.stream;
+  Stream get sairVideos => _videosController.stream;
 
   //passar da dos para dentro de um bloc
   //vou receber dados de fora
@@ -33,17 +31,20 @@ class VideosBloc implements BlocBase {
   //o que for passado dentro de entrarBusca vem como paremetro
   void _buscar(String busca) async {
     if (busca != null) {
-      videos = await api.buscar(busca);
+      //para limpar a lista quando eu pesquiso algo novo
+      //ele refaz a tela com uma lista vazia e depois sim carrega a lista nova
+      _videosController.sink.add([]);
+      videos = await api.buscarSujestao(busca);
     } else {
       videos += await api.proximaPagina();
     }
-    _streamController.sink.add(videos);
+    _videosController.sink.add(videos); //isso passa os videos para a entrada do Stream > depois é chamado a saida dele
   }
 
   @override
   void dispose() {
     //toda vez que voce for usar uma stream voce tem que fechar para não prejudicar a preformance.
-    _streamController.close();
+    _videosController.close();
     _buscaController.close();
   }
 }
