@@ -36,6 +36,7 @@ class VideosBloc implements BlocBase {
       _videosController.sink.add([]);
       videos = await api.buscarSujestao(busca);
     } else {
+      //juntando duas listas com +=
       videos += await api.proximaPagina();
     }
     _videosController.sink.add(videos); //isso passa os videos para a entrada do Stream > depois é chamado a saida dele

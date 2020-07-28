@@ -8,10 +8,11 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritosBloc implements BlocBase {
-  Map<String, Video> _favoritos = {}; //para salvar o id e o video
+  Map<String, Video> _favoritos = {}; //para salvar o id e o video que eu marquei
 
-  final _favoritoController = BehaviorSubject<Map<String, Video>>(seedValue: {});
+  final StreamController _favoritoController = BehaviorSubject<Map<String, Video>>(seedValue: {});
 
+  //como eu vou chegar neste bloc aqui será a saida do tudo de controller
   Stream<Map<String, Video>> get saidaFavoritos => _favoritoController.stream;
 
   FavoritosBloc() {
@@ -27,12 +28,13 @@ class FavoritosBloc implements BlocBase {
   }
 
   //pode ser enviado informação para o bloc de duas formas
-  // um voce pode usar o exemplo do entrarBusca
+  // um voce pode usar o exemplo do entrarBusca com listener e função
   //segundo pode ser criado uma função
 
+  //esta ligado ou desligado
   void toggleFavorito(Video video) {
     if (_favoritos.containsKey(video.id)) {
-      //este video já esta no meu mapa de favoritos
+      //este video já esta no meu mapa de favoritos então eu removo
       _favoritos.remove(video.id);
     } else {
       //nao esta no mapa vou adicionar
