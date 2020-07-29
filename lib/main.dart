@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        bloc: VideosBloc(),
+        bloc: VideosBloc(),// na plicação mais externa voce cria os blocs para acessar em toda a aplicação
         child: BlocProvider(
           bloc: FavoritosBloc(),
           child: MaterialApp(

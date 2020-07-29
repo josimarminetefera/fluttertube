@@ -32,7 +32,7 @@ class Favorites extends StatelessWidget {
                     );
                   },
                   onLongPress: (){
-                    bloc.toggleFavorito(v);
+                    bloc.ligarDesligarFavorito(v);
                   },
                   child: Row(
                     children: <Widget>[

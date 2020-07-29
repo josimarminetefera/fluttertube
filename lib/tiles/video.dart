@@ -63,18 +63,22 @@ class VideoTile extends StatelessWidget {
   }
 
   StreamBuilder<Map<String, Video>> montarBotaoFavorito(BuildContext context) {
+    //para carregar o StreamBuilder
     return StreamBuilder<Map<String, Video>>(
-      stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,//toda vez que eu modificar o mapa de favoritos eu refaço o botão
+      stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos, //toda vez que eu modificar o mapa de favoritos eu refaço o botão
       builder: (context, snapshot) {
+        //snapshot vai conter toda a lista de favoritos que eu marquei
         if (snapshot.hasData) {
           return IconButton(
             icon: Icon(
+              //o cideo montado está na lista de favoritos
               snapshot.data.containsKey(video.id) ? Icons.star : Icons.star_border,
             ),
             color: Colors.white,
             iconSize: 30,
             onPressed: () {
-              BlocProvider.of<FavoritosBloc>(context).toggleFavorito(video);
+              //adiciono ou removo o video do favorito
+              BlocProvider.of<FavoritosBloc>(context).ligarDesligarFavorito(video);
             },
           );
         } else {

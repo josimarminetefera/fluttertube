@@ -13,6 +13,7 @@ class Video {
 
   factory Video.paraVideo(Map<String, dynamic> json) {
     if (json.containsKey("id"))
+      //BUSCA DIRETO DA GOOGLE
       return Video(
         id: json["id"]["videoId"],
         title: json["snippet"]["title"],
@@ -20,6 +21,7 @@ class Video {
         channel: json["snippet"]["channelTitle"],
       );
     else
+      //BUSCA DO SHARED PREFERENCES
       return Video(
         id: json["videoId"],
         title: json["title"],

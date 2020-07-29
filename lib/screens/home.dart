@@ -75,7 +75,7 @@ class Home extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: StreamBuilder<Map<String, Video>>(
-            stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,
+            stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos, //atualizo os dois botões de favoritos ao mesmo tempo
             builder: (context, snapshot) {
               if (snapshot.hasData)
                 return Text(
@@ -118,11 +118,13 @@ class Home extends StatelessWidget {
                 minWidth: 12,
                 minHeight: 12,
               ),
-              child: StreamBuilder<Map<String, Video>>(
-                stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,
+              //trocando o texto por um stream da para atualizar os numeros quando clico no botão de favorito
+              child: StreamBuilder<Map<String, Video>>(// map com todos os videos que nos favoritamos
+                stream: BlocProvider.of<FavoritosBloc>(context).saidaFavoritos,//estamos dando listem aqui
                 builder: (context, snapshot) {
                   if (snapshot.hasData)
                     return Text(
+                      //colocar o tamanho de favoritos que eu tenho
                       "${snapshot.data.length}",
                       style: new TextStyle(
                         color: Colors.white,

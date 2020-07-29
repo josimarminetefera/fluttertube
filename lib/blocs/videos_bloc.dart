@@ -11,6 +11,7 @@ class VideosBloc implements BlocBase {
   List<Video> videos;
 
   //nao quero ter acesso fora do bloc
+  //isso aqui indica que ele pode ter apenas uma instancia por vez no caso dos favoritos é diferente
   final StreamController<List<Video>> _videosController = StreamController<List<Video>>();
 
   //externamente só vou falar com esta variavel pois as outras ficaram internas
